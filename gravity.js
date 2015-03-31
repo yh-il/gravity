@@ -7,8 +7,8 @@ gravity.main = function(){
 	 */
 	// var CHILD_LENGTH = Math.floor(Math.random() * 30) + 15; ★
 	var CHILD_LENGTH = 10;
-	var CONTAINER_WIDTH = 500;
-	var CONTAINER_HEIGHT = 500;
+	var CONTAINER_WIDTH = 800;
+	var CONTAINER_HEIGHT = 600;
 	var childs = [];
 
 	/**
@@ -25,7 +25,7 @@ gravity.main = function(){
 		}
 
 		//一定間隔でフレームを進める
-		setInterval(step, 30);
+		setInterval(step, 20);
 
 		//クリックでポジションをリセット
 		$('#container').on('click', function(event) {
@@ -48,7 +48,7 @@ gravity.main = function(){
 	}
 
 
-	//▼ここからクラスっぽいやつ========================================================================= 
+	//▼ここからコンストラクタ======================================================================= 
 
 	/**
 	 * 親作成クラス（ボールが入る箱部分）
