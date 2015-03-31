@@ -35,18 +35,15 @@ gravity.main = function(){
 	});
 
 	function reset(){
-		var target;
 		for(var i = 0; i < CHILD_LENGTH; i++){
-			target = childs[i];
-			target.reset();
+			childs[i].reset();
 		}
 	}
 
 	function step(){
-		var target;
 		for(var i = 0; i < CHILD_LENGTH; i++){
-			target = childs[i];
-			target.step();
+			childs[i].move();
+			childs[i].step();
 		}
 	}
 
@@ -83,12 +80,17 @@ gravity.main = function(){
 
 	/**
 	 * 子生成クラス（ボール部分）
-	 * @param {[Integer]} _radius [ボールの角丸値]
+	 * @param {[Integer]} _radius [ボールの半径]
 	 */
 	function ChildFactory(_radius){
+
 		var JQ = $('<div>');
 		var x = Math.random() * CONTAINER_WIDTH;
 		var y = Math.random() * CONTAINER_HEIGHT / 2;
+		var speedX = 0;
+		var speedY = Math.random() * 5;
+		var ACC = 0.9;
+		var GENSUI = 0.7;
 		var color = randomColor();
 
 		JQ.css({
@@ -108,15 +110,38 @@ gravity.main = function(){
 		}
 
 		function _reset(){
+			speedX = 0;
+			speedY = Math.random() * 3;
 			x = Math.random() * CONTAINER_WIDTH;
 			y = Math.random() * CONTAINER_HEIGHT / 2;
 		}
 
+		function _move(){
+			x += speedX;
+			y += speedY;
+
+			if(y > (CONTAINER_HEIGHT - _radius)){
+				y = CONTAINER_HEIGHT - _radius;
+				_reflectY();
+			}
+			else if(y < 0){
+				y = 0;
+				_reflectY();
+			}
+
+			speedY += ACC;
+		}
+
 		function _step(){
 			JQ.css({
-				left: x + 'px',
-				top: y + 'px'
+				left: (x - _radius) + 'px',
+				top: (y - _radius) + 'px'
 			});
+		}
+
+		function _reflectY(){
+			speedY = -speedY;
+			speedY *= GENSUI;
 		}
 
 		function _appendTo(_container){
@@ -125,9 +150,11 @@ gravity.main = function(){
 
 		return{
 			reset: _reset,
+			move: _move,
 			step: _step,
 			appendTo: _appendTo
 		}
+
 	}
 
 };
