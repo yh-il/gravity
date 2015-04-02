@@ -52,12 +52,12 @@ gravity.main = function(){
 
 	/**
 	 * 親作成クラス（ボールが入る箱部分）
-	 * @param {[String]} _selector [対象のCSSセレクタ]
+	 * @param {[String]} selector [対象のCSSセレクタ]
 	 * @return {[function]} [このクラスの持つ関数（メソッド）]
 	 */
-	function ParentFactory(_selector){
+	function ParentFactory(selector){
 
-		var JQ = $(_selector);
+		var JQ = $(selector);
 		
 		JQ.css({
 			width: CONTAINER_WIDTH + 'px',
@@ -68,8 +68,8 @@ gravity.main = function(){
 			top: 0 + 'px'
 		});
 
-		function _append(_childJQ){
-			JQ.append(_childJQ);
+		function _append(childJQ){
+			JQ.append(childJQ);
 		}
 
 		return{
@@ -80,9 +80,9 @@ gravity.main = function(){
 
 	/**
 	 * 子生成クラス（ボール部分）
-	 * @param {[Integer]} _radius [ボールの半径]
+	 * @param {[Integer]} radius [ボールの半径]
 	 */
-	function ChildFactory(_radius){
+	function ChildFactory(radius){
 
 		var JQ = $('<div>');
 		var x = Math.random() * CONTAINER_WIDTH;
@@ -94,14 +94,14 @@ gravity.main = function(){
 		var color = randomColor();
 
 		JQ.css({
-			width: (_radius * 2) + 'px',
-			height: (_radius * 2) + 'px',
+			width: (radius * 2) + 'px',
+			height: (radius * 2) + 'px',
 			position: 'absolute',
 			left: x + 'px',
 			top: y + 'px',
 			backgroundColor: color,
-			borderRadius: _radius + 'px',
-			// boxShadow: (_radius/14)+"px "+(_radius/14)+"px "+(_radius/17)+"px "+(_radius/17)+"px #222"
+			borderRadius: radius + 'px',
+			// boxShadow: (radius/14)+"px "+(radius/14)+"px "+(radius/17)+"px "+(radius/17)+"px #222"
 		});
 
 		function randomColor(){
@@ -120,8 +120,8 @@ gravity.main = function(){
 			x += speedX;
 			y += speedY;
 
-			if(y > (CONTAINER_HEIGHT - _radius)){
-				y = CONTAINER_HEIGHT - _radius;
+			if(y > (CONTAINER_HEIGHT - radius)){
+				y = CONTAINER_HEIGHT - radius;
 				_reflectY();
 			}
 			else if(y < 0){
@@ -134,8 +134,8 @@ gravity.main = function(){
 
 		function _step(){
 			JQ.css({
-				left: (x - _radius) + 'px',
-				top: (y - _radius) + 'px'
+				left: (x - radius) + 'px',
+				top: (y - radius) + 'px'
 			});
 		}
 
@@ -144,8 +144,8 @@ gravity.main = function(){
 			speedY *= GENSUI;
 		}
 
-		function _appendTo(_container){
-			_container.append(JQ);
+		function _appendTo(container){
+			container.append(JQ);
 		}
 
 		return{
