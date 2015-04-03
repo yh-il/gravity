@@ -74,7 +74,7 @@ gravity.main = function(){
 
 		return{
 			append: _append
-		}
+		};
 
 	}
 
@@ -153,7 +153,7 @@ gravity.main = function(){
 			move: _move,
 			step: _step,
 			appendTo: _appendTo
-		}
+		};
 
 	}
 
