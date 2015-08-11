@@ -1,6 +1,6 @@
 var gravity = {};
 
-gravity.main = function(){
+gravity.main = function(){   
 
 	/**
 	 * gravity.main内で使用する変数・定数
